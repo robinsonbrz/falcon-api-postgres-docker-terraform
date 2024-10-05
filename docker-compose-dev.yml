@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  db_falcon:
+    container_name: db_falcon_dev
+    image: postgres:13-alpine
+    volumes:
+      - postgres_falcon_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWD}
+      - DJANGO_SETTINGS_MODULE=falcon_express.settings
+
+    ports:
+      - "5435:5432"
+
+  web_falcon:
+    container_name: web_falcon_dev
+    image: web_falcon_dev_img
+    build: .
+    dockerfile: Dockerfile.dev
+    tty: true
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db_falcon
+
+volumes:
+  postgres_falcon_data:
