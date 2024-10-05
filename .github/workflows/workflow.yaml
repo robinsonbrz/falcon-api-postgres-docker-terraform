@@ -23,12 +23,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Tests and Coverage with pytest - over Sqlite3 temp DB
-      env:
-        SQL_ENGINE: django.db.backends.sqlite3
-        DB_NAME: ingresso_express/db.sqlite3
-        SECRET_KEY: 094b1ce318f7283699d6d978bad7671d8419bf4a
-
+    - name: Tests and Coverage
       run: |
         python -m pytest . --cov-report term --cov=. --cov-fail-under=30
 
@@ -42,17 +37,17 @@ jobs:
     - name: Check Lint with flake8
       run: |
         python -m flake8 --check --diff . |
-        flake8 ./src
+        flake8 .
 
     - name: Black Check
       run: |
         python -m black --check --diff . |
-        python -m black ./src
+        python -m black .
 
     - name: Isort Check
       run: |
         python -m isort --check --diff . |
-        python -m isort ./src
+        python -m isort .
 
     - name: Tests and Coverage with pytest - over Sqlite3 temp DB
       run: |

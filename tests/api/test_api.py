@@ -1,4 +1,5 @@
 import json
+
 import falcon
 import pytest
 from falcon import testing
@@ -12,7 +13,7 @@ def client():
 
 
 def test_get_root(client):
-    response = client.simulate_get('/')
+    response = client.simulate_get("/")
     assert response.status == falcon.HTTP_200
     assert json.loads(response.content) == {"message": "Api up and Running!"}
 
@@ -25,7 +26,9 @@ def test_get_root(client):
 #     response = client.simulate_post(
 #         '/',
 #         body=json.dumps(payload),  # Explicitly dump JSON payload to body
-#         headers={"Content-Type": "application/json"}  # Set content-type header
+#         headers={
+#           "Content-Type": "application/json"
+#           }  # Set content-type header
 #     )
 #     assert response.status == falcon.HTTP_200
 #     assert json.loads(response.content) == payload
@@ -34,17 +37,19 @@ def test_get_root(client):
 # def test_post_root_invalid_json(client):
 #     response = client.simulate_post('/', body='invalid json')
 #     assert response.status == falcon.HTTP_400
-#     assert json.loads(response.content) == {"title": "400 Bad Request", "description": "Invalid JSON format"}
+#     assert json.loads(response.content) == {
+#       "title": "400 Bad Request", "description": "Invalid JSON format"
+#        }
 
 
 def test_get_hello_world(client):
-    response = client.simulate_get('/hello-world')
+    response = client.simulate_get("/hello-world")
     assert response.status == falcon.HTTP_200
     assert json.loads(response.content) == {"message": "Hello World!"}
 
 
 def test_get_person(client):
-    response = client.simulate_get('/person')
+    response = client.simulate_get("/person")
     expected = {"name": "Robinson", "country": "Brazil", "city": "São Paulo"}
     assert response.status == falcon.HTTP_200
     assert json.loads(response.content) == expected

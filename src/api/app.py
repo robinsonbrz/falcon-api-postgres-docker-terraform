@@ -14,7 +14,11 @@ class RequestHelloWorld:
 
 class RequestPerson:
     def on_get(self, req, resp):
-        content = {"name": "Robinson", "country": "Brazil", "city": "São Paulo"}
+        content = {
+            "name": "Robinson",
+            "country": "Brazil",
+            "city": "São Paulo",
+        }
         resp.body = json.dumps(content)
         resp.status = falcon.HTTP_200
 
