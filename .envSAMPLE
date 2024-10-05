@@ -1,0 +1,4 @@
+DB_NAME=falco_express
+DB_HOST=db_falco_dev
+DB_USER=postgres
+DB_PASSWD=postgres

@@ -17,9 +17,10 @@ services:
 
   web_falcon:
     container_name: web_falcon_dev
-    image: web_falcon_dev_img
-    build: .
-    dockerfile: Dockerfile.dev
+    # image: web_falcon_dev_img
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
     tty: true
     volumes:
       - .:/app

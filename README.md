@@ -12,6 +12,8 @@ Repositório com experimento de diferentes Ferramentas, e tecnologias.
 
     [ ] Autenticação
 
+[ ] Pytest
+
 [ ] PostgreSql
 
 [ ] SqlAlchemy
@@ -22,6 +24,12 @@ Repositório com experimento de diferentes Ferramentas, e tecnologias.
 
 [ ] AWS RDS
 
+[ ] Terraform
+
+[ ] Pipeline CI/CD - Github Actions
+
+
+.env 
 
 
 

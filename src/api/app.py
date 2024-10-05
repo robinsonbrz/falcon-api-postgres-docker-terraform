@@ -1,48 +1,39 @@
-import json, falcon
-
+import json
 import logging
+
+import falcon
 
 logging.basicConfig(level=logging.ERROR)
 
 
 class RequestHelloWorld:
     def on_get(self, req, resp):
-        resp.body = json.dumps({'message': 'Hello World!'})
+        resp.body = json.dumps({"message": "Hello World!"})
         resp.status = falcon.HTTP_200
-
 
 
 class RequestPerson:
     def on_get(self, req, resp):
-        content = { 
-            'name':'Robinson',
-            'country': 'Brazil',
-            'city': 'São Paulo'
-        }
+        content = {"name": "Robinson", "country": "Brazil", "city": "São Paulo"}
         resp.body = json.dumps(content)
         resp.status = falcon.HTTP_200
 
 
 class RequestRoot:
     def on_get(self, req, resp):
-        resp.body = json.dumps({'message': 'Api up and Running!'})
+        resp.body = json.dumps({"message": "Api up and Running!"})
         resp.status = falcon.HTTP_200
-
 
     def on_post(self, req, resp):
         try:
             data = json.loads(req.stream.read())
-            name = data.get('name')
-            country = data.get('country')
-            print(f'Name: {name}, Country: {country}')
+            name = data.get("name")
+            country = data.get("country")
+            print(f"Name: {name}, Country: {country}")
 
-            content = {
-                'name': name,
-                'country': country
-            }
+            content = {"name": name, "country": country}
             resp.status = falcon.HTTP_200
             resp.body = json.dumps(content)
-
 
         except json.JSONDecodeError:
             logging.error("Failed to decode JSON")
@@ -54,9 +45,8 @@ class RequestRoot:
             resp.body = json.dumps({"error": "Internal Server Error"})
 
 
-
 api = falcon.API()
-api.add_route('/', RequestRoot())
+api.add_route("/", RequestRoot())
 
-api.add_route('/hello-world', RequestHelloWorld())
-api.add_route('/person', RequestPerson())
+api.add_route("/hello-world", RequestHelloWorld())
+api.add_route("/person", RequestPerson())
