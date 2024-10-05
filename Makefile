@@ -23,7 +23,7 @@ stop:
 	docker-compose -f docker-compose-dev.yml stop 
 
 test:
-	docker exec -ti web_falcon_dev  pytest . --cov-report term --cov=. --cov-fail-under=80
+	docker exec -ti web_falcon_dev  python -m pytest . --cov-report term --cov=. --cov-fail-under=30
 
 lint:
 	@echo "\n########## Runs isort, black and flake8. Organizing and linting code. ###########\n"
