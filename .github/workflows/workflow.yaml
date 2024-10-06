@@ -47,9 +47,11 @@ jobs:
         python -m isort .
 
     - name: Tests and Coverage with pytest
-      working-directory: /home/app/src
+      env:
+        PYTHONPATH: /home/app/src  # Set PYTHONPATH to include src
       run: |
         python -m pytest . --cov-report term --cov=. --cov-fail-under=30
+
 
     # - name: Install Terraform
     #   uses: hashicorp/setup-terraform@v1
