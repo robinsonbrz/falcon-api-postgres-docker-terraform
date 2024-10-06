@@ -4,7 +4,7 @@ import falcon
 import pytest
 from falcon import testing
 
-from src.api.app import api
+from api.app import api
 
 
 @pytest.fixture
