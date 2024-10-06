@@ -47,7 +47,7 @@ jobs:
 
     - name: Tests and Coverage with pytest
       run: |
-        python -m pytest app --cov-report term --cov=app --cov-fail-under=30
+        python -m pytest . --cov-report term --cov=. --cov-fail-under=30
 
     # - name: Install Terraform
     #   uses: hashicorp/setup-terraform@v1
