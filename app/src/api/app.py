@@ -2,6 +2,7 @@ import json
 import logging
 
 import falcon
+from mangum import Mangum
 
 logging.basicConfig(level=logging.ERROR)
 
@@ -54,3 +55,6 @@ api.add_route("/", RequestRoot())
 
 api.add_route("/hello-world", RequestHelloWorld())
 api.add_route("/person", RequestPerson())
+
+
+handler = Mangum(api, lifespan="off")

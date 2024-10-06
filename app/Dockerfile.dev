@@ -23,7 +23,7 @@ RUN pip install --upgrade pip
 
 
 # Copia o arquivo de requerimentos e instala as dependências
-COPY ./requirements.txt /app/requirements.txt
+COPY app/requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
 # Muda para o usuário não-root 'app'
