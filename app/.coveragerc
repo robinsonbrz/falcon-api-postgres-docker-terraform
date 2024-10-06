@@ -1,0 +1,17 @@
+[run]
+omit =
+    */venv/*
+    */.coverage/*
+    */.pytest_cache/*
+    *__init__*
+    */migrations/*
+    *admin.py*
+    *apps.py*
+    *urls.py*
+    *test_*
+    *tests.py*
+    *conftest.py*
+    *celery.py*
+    *choices.py*
+    *forms.py*
+    *_schema.py*

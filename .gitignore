@@ -3,8 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.bash_history
+
 # C extensions
 *.so
+
+app/.vscode-server
+app/.dotnet
 
 
 # Distribution / packaging
