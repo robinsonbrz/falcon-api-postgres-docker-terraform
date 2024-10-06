@@ -11,7 +11,7 @@ jobs:
     container:
       image: python:3.8-slim-buster
       volumes:
-        - .:/app
+        - .:/home
 
     steps:
     - name: Checkout Repository
@@ -32,22 +32,22 @@ jobs:
 
     - name: Check Lint with flake8
       run: |
-        python -m flake8 --check --diff /app |
+        python -m flake8 --check --diff app |
         flake8 
 
     - name: Black Check
       run: |
-        python -m black --check --diff /app |
-        python -m black /app
+        python -m black --check --diff app |
+        python -m black app
 
     - name: Isort Check
       run: |
         python -m isort --check --diff app |
-        python -m isort /app
+        python -m isort app
 
     - name: Tests and Coverage with pytest
       run: |
-        python -m pytest /app --cov-report term --cov=/app --cov-fail-under=30
+        python -m pytest app --cov-report term --cov=app --cov-fail-under=30
 
     # - name: Install Terraform
     #   uses: hashicorp/setup-terraform@v1
