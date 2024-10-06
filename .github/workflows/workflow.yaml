@@ -32,22 +32,22 @@ jobs:
 
     - name: Check Lint with flake8
       run: |
-        python -m flake8 --check --diff app |
+        python -m flake8 --check --diff app/src |
         flake8 
 
     - name: Black Check
       run: |
-        python -m black --check --diff app |
-        python -m black app
+        python -m black --check --diff app/src |
+        python -m black app/src
 
     - name: Isort Check
       run: |
         python -m isort --check --diff app |
-        python -m isort app
+        python -m isort app/src
 
     - name: Tests and Coverage with pytest
       run: |
-        python -m pytest app --cov-report term --cov=app --cov-fail-under=30
+        python -m pytest app/src --cov-report term --cov=app/src --cov-fail-under=30
 
     # - name: Install Terraform
     #   uses: hashicorp/setup-terraform@v1
