@@ -50,11 +50,24 @@ class RequestRoot:
             resp.body = json.dumps({"error": "Internal Server Error"})
 
 
+class RequestParams:
+    def on_get(self, req, resp):
+        if "name" in req.params:
+            name = req.get_param("name")
+            content = {"name": name}
+        else:
+            resp.status = falcon.HTTP_400
+            resp.body = json.dumps({"error": "name parameter needed!"})
+            return
+        resp.status = falcon.HTTP_200
+        resp.body = json.dumps(content)
+
+
 api = falcon.API()
 api.add_route("/", RequestRoot())
-
 api.add_route("/hello-world", RequestHelloWorld())
 api.add_route("/person", RequestPerson())
+api.add_route("/params", RequestParams())
 
 
 handler = Mangum(api, lifespan="off")

@@ -3,7 +3,9 @@
 Repositório com experimento de diferentes Ferramentas, e tecnologias.
 
 [x] Docker
+
     [x] App
+
     [x] Postgres
 
 [x] Integração e debug com VsCode e container 
@@ -13,6 +15,8 @@ Repositório com experimento de diferentes Ferramentas, e tecnologias.
     [x] Primeiros endpoints de teste
 
     [ ] Autenticação
+
+[x] CI
 
 [x] Pytest
 
@@ -29,9 +33,6 @@ Repositório com experimento de diferentes Ferramentas, e tecnologias.
 [ ] Terraform
 
 [ ] Pipeline CI/CD - Github Actions
-
-
-.env 
 
 
 
