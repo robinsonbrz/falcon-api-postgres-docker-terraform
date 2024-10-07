@@ -19,7 +19,7 @@ services:
     container_name: web_falcon_dev
     build: 
       context: .
-      dockerfile: app/Dockerfile.dev
+      dockerfile: Dockerfile.dev
     tty: true
     volumes:
       - .:/home

@@ -1,61 +1,55 @@
-default: 
-	@echo "Comandos disponíveis"
+# Variables
+DOCKER_COMPOSE_FILE = docker-compose -f docker-compose-dev.yml
+DOCKER_CONTAINER = web_falcon_dev
 
-	@echo "make start           - Inicializa container, e executa serviço"
-	@echo "make stop            - Encerra execução dos containers BD"
-	@echo "make test            - Fazer teste com o pytest"
-	@echo "make lint            - Organiza o codigo"
-	@echo "make black           - Black é um formatador de código Python que segue a PEP 8,"
-	@echo "make isort           - Classifica automaticamente as importações em um arquivo de código Python"
-	@echo "make flake8          - O Flake8 é um linter de código Python que verifica o estilo e a qualidade do código"
-	@echo "make pre             - Pre analise do codigo antes do commit, Isort, Black Flake8 e um teste de coverage"
+# Targets
+.PHONY: build down start stop test cov-html lint pre isort black flake8
 
+# Docker container management
 build:
-	docker-compose -f docker-compose-dev.yml up -d --build
+	$(DOCKER_COMPOSE_FILE) up -d --build
 
 down:
-	docker-compose -f docker-compose-dev.yml down
+	$(DOCKER_COMPOSE_FILE) down
 
 start:
-	docker-compose -f docker-compose-dev.yml start	
+	$(DOCKER_COMPOSE_FILE) start
 
 stop:
-	docker-compose -f docker-compose-dev.yml stop 
+	$(DOCKER_COMPOSE_FILE) stop
 
+# Testing
 test:
-	docker exec -ti web_falcon_dev  python -m pytest src --cov-report term --cov=src --cov-fail-under=30
+	@echo "\n####################### Running tests with coverage ###########################\n"
+	docker exec -ti $(DOCKER_CONTAINER) python -m pytest ./ --cov-report term --cov=./ --cov-fail-under=30
 
 cov-html:
-	@echo "\n################################ Running coverage-html. ################################\n"
-	docker exec -ti web_falcon_dev	python -m pytest --cov-report html --cov src
+	@echo "\n################################ Running coverage-html ################################\n"
+	docker exec -ti $(DOCKER_CONTAINER) python -m pytest --cov-report html --cov src
 
+# Linting and code formatting
 lint:
-	@echo "\n########## Runs isort, black and flake8. Organizing and linting code. ###########\n"
-	@echo "############################### Running isort ###################################\n"
-	docker exec -ti web_falcon_dev isort src
-	docker exec -ti -u root web_falcon_dev chown -R app:app /home/app/src
-	@echo "\n################################# Running black #################################\n"
-	docker exec -ti web_falcon_dev black src
-	docker exec -ti -u root web_falcon_dev chown -R app:app /home/app/src
-	@echo "\n################################ Running flake8 ################################\n"
-	docker exec -ti web_falcon_dev flake8 src
-	docker exec -ti -u root web_falcon_dev chown -R app:app /home/app/src
+	@echo "\n########## Running isort, black, and flake8. Organizing and linting code ###########\n"
+	$(MAKE) isort
+	$(MAKE) black
+	$(MAKE) flake8
 
 pre: 
-	make lint
-	make test
+	$(MAKE) lint
+	$(MAKE) test
 
+# Individual formatters and linters
 isort:
-	@echo "############################### Running isort ###################################\n"
-	docker exec -ti web_falcon_dev isort src
-	docker exec -ti -u root web_falcon_dev chown -R app:app /home/app/src
+	@echo "\n############################### Running isort ###################################\n"
+	docker exec -ti $(DOCKER_CONTAINER) isort .
+	docker exec -ti -u root $(DOCKER_CONTAINER) chown -R app:app /home
 
 black:
 	@echo "\n################################# Running black #################################\n"
-	docker exec -ti web_falcon_dev black src
-	docker exec -ti -u root web_falcon_dev chown -R app:app /home/app/src
+	docker exec -ti $(DOCKER_CONTAINER) black .
+	docker exec -ti -u root $(DOCKER_CONTAINER) chown -R app:app /home
 
 flake8:
-	@echo "\n################################ Running flake8. ################################\n"
-	docker exec -ti web_falcon_dev flake8 src
-	docker exec -ti -u root web_falcon_dev chown -R app:app /home/app/src
+	@echo "\n################################ Running flake8 ################################\n"
+	docker exec -ti $(DOCKER_CONTAINER) flake8 .
+	docker exec -ti -u root $(DOCKER_CONTAINER) chown -R app:app /home

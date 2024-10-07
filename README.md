@@ -3,6 +3,8 @@
 Repositório com experimento de diferentes Ferramentas, e tecnologias.
 
 [x] Docker
+    [x] App
+    [x] Postgres
 
 [x] Integração e debug com VsCode e container 
 
@@ -12,7 +14,7 @@ Repositório com experimento de diferentes Ferramentas, e tecnologias.
 
     [ ] Autenticação
 
-[ ] Pytest
+[x] Pytest
 
 [ ] PostgreSql
 
